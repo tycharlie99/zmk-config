@@ -4,10 +4,11 @@
 
 #include <dt-bindings/zmk/matrix_transform.h>
 
-#include "charlie_kb-layouts.dtsi"
+/* #include "charlie_kb-layouts.dtsi" */
 
 / {
     chosen {
+        zmk,kscan = &kscan;
         zmk,physical-layout = &default_layout;
     };
 
