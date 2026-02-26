@@ -20,7 +20,7 @@
     };
 
     // 因為是直連模式，transform 也要改成直連對應
-    direct_transform: {
+    direct_transform: direct_transform {
         compatible = "zmk,matrix-transform";
         columns = <1>;
         rows = <1>;
