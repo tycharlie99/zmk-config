@@ -4,49 +4,26 @@
 
 #include <dt-bindings/zmk/matrix_transform.h>
 
-/* #include "charlie_kb-layouts.dtsi" */
-
 / {
     chosen {
-        zmk,kscan = &kscan;
-        zmk,matrix-transform = &default_transform;
-        /* zmk,physical-layout = &default_layout; */
+        zmk,kscan = &kscan0;
+        zmk,matrix-transform = &direct_transform;
     };
 
-    kscan: kscan {
-        // If the hardware does not use a switch matrix, change this to the
-        // appropriate driver and update the properties below to match.
-        // See https://zmk.dev/docs/config/kscan for supported key scan drivers.
-        compatible = "zmk,kscan-gpio-matrix";
-        // Set this to "col2row" or "row2col" to match the hardware. If using
-        // "row2col", change the col-gpios to (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)
-        // and the row-gpios to GPIO_ACTIVE_HIGH.
-        diode-direction = "col2row";
+    // 改用 Direct Pin 模式，不走矩陣，排除二極體干擾
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
-
-        // Replace these comments with the GPIO pins in the matrix.
-        // See https://zmk.dev/docs/development/hardware-integration/new-shield#shield-overlays
-        col-gpios
-            = <&pro_micro 2 GPIO_ACTIVE_HIGH>
-            , <&pro_micro 3 GPIO_ACTIVE_HIGH>
-            ;
-
-        row-gpios
-            = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        input-gpios
+            = <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // 測試 D2 (P0.17)
             ;
     };
 
-    default_transform: default_transform {
-        // See https://zmk.dev/docs/development/hardware-integration/new-shield#matrix-transform
-        // for how to configure this
+    // 因為是直連模式，transform 也要改成直連對應
+    direct_transform: {
         compatible = "zmk,matrix-transform";
-        columns = <2>;
-        rows = <2>;
-
-        map = <
-            RC(0, 0) RC(0, 1)
-            RC(1, 0) RC(1, 1)
-        >;
+        columns = <1>;
+        rows = <1>;
+        map = <RC(0,0)>;
     };
 };

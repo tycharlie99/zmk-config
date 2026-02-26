@@ -5,15 +5,11 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
-    // Define a default keymap here.
-    // See https://zmk.dev/docs/development/hardware-integration/new-shield#default-keymap.
     keymap {
         compatible = "zmk,keymap";
-
         default_layer {
             bindings = <
-                &kp A &kp B
-                &kp C &kp D
+                &kp A  // 當 D2 碰地時，應該打出 A
             >;
         };
     };
