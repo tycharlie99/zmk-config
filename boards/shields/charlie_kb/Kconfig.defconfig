@@ -1,0 +1,6 @@
+if SHIELD_CHARLIE_KB
+
+config ZMK_KEYBOARD_NAME
+    default "charlie_kb"
+
+endif # SHIELD_CHARLIE_KB
